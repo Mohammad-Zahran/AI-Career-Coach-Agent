@@ -1,4 +1,5 @@
 import React from "react";
+import AiToolCard from "./AiToolCard";
 
 const aiToolsList = [
   {
@@ -39,7 +40,9 @@ function AiTools() {
 
       <div>
         {aiToolsList.map((tools, index) => (
-          <div></div>
+          <div>
+            <AiToolCard tool={tool} key={index} />
+          </div>
         ))}
       </div>
     </div>
