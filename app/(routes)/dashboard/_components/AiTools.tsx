@@ -1,10 +1,47 @@
 import React from "react";
 
+const aiToolsList = [
+  {
+    name: "AI Career Q&A Chat",
+    desc: "Chat with AI Agent",
+    icon: "/chatbot.png",
+    button: "Lets Chat",
+    path: "/ai-chat",
+  },
+  {
+    name: "AI Resume Analyzer",
+    desc: "Improve your resume",
+    icon: "/resume.png",
+    button: "Analyze Now",
+    path: "/ai-resume-analyzer",
+  },
+  {
+    name: "Career Roadmap Generator",
+    desc: "Build your roadmap",
+    icon: "/roadmap.png",
+    button: "Generate Now",
+    path: "/career-roadmap-generator",
+  },
+  {
+    name: "Cover Letter Generator",
+    desc: "Write a cover letter",
+    icon: "/cover.png",
+    button: "Create Now",
+    path: "/cover-letter-generator",
+  },
+];
+
 function AiTools() {
   return (
     <div className="mt-7 p-5 bg-white border rounded-xl">
       <h2 className="font-bold text-lg">Available AI Tools</h2>
       <p>Start Building and Shape Your Career with this exclusive AI Tools</p>
+
+      <div>
+        {aiToolsList.map((tools, index) => (
+          <div></div>
+        ))}
+      </div>
     </div>
   );
 }
