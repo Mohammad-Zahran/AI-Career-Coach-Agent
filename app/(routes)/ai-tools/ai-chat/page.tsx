@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send } from "lucide-react";
 import React from "react";
+import EmptyState from "./_components/EmptyState";
 
 function page() {
   return (
@@ -11,14 +12,16 @@ function page() {
           <h2 className="font-bold text-lg">AI Career Q/A Chat</h2>
           <p>
             Smarter career decisons start here - get tailored advice, real-time
-            market insights, and a roadmap built just for you with the power of
-            AI
+            market insights
           </p>
         </div>
         <Button>+ New Chat</Button>
       </div>
       <div className="flex flex-col h-[75vh]">
-        <div>{/* Empty State options */}</div>
+        <div className="mt-5">
+          {/* Empty State options */}
+          <EmptyState />
+        </div>
 
         <div className="flex-1">{/* Message List */}</div>
 
