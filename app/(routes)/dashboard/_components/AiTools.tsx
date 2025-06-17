@@ -38,8 +38,8 @@ function AiTools() {
       <h2 className="font-bold text-lg">Available AI Tools</h2>
       <p>Start Building and Shape Your Career with this exclusive AI Tools</p>
 
-      <div>
-        {aiToolsList.map((tools, index) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {aiToolsList.map((tool: any, index) => (
           <div>
             <AiToolCard tool={tool} key={index} />
           </div>
