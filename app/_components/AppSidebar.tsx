@@ -25,7 +25,7 @@ import { usePathname } from "next/navigation";
 const items = [
   {
     title: "Workspace",
-    url: "dashboard",
+    url: "/dashboard",
     icon: Home,
   },
   {
@@ -40,12 +40,12 @@ const items = [
   },
   {
     title: "Billing",
-    url: "billing",
+    url: "/billing",
     icon: Wallet,
   },
   {
     title: "Profile",
-    url: "profile",
+    url: "/profile",
     icon: UserCircleIcon,
   },
 ];
