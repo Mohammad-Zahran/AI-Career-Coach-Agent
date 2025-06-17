@@ -40,7 +40,7 @@ function AiTools() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-4">
         {aiToolsList.map((tool: any, index) => (
-          <div>
+          <div key={index}>
             <AiToolCard tool={tool} key={index} />
           </div>
         ))}

@@ -11,14 +11,21 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Calendar, Home, Inbox, Settings, UserCircleIcon, Wallet } from "lucide-react";
+import {
+  Calendar,
+  Home,
+  Inbox,
+  Settings,
+  UserCircleIcon,
+  Wallet,
+} from "lucide-react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const items = [
   {
     title: "Workspace",
-    url: "#",
+    url: "dashboard",
     icon: Home,
   },
   {
@@ -33,7 +40,7 @@ const items = [
   },
   {
     title: "Billing",
-    url: "#",
+    url: "billing",
     icon: Wallet,
   },
   {
