@@ -45,7 +45,7 @@ const items = [
   },
   {
     title: "Profile",
-    url: "#",
+    url: "profile",
     icon: UserCircleIcon,
   },
 ];
