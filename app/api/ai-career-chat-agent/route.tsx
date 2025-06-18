@@ -9,12 +9,12 @@ export async function POST(req: any) {
     name: "AiCareerAgent",
     data: { userInput: userInput },
   });
-  const runId = resultIds.ids[0];
+  const runId = resultIds?.ids[0];
 
   let runStatus;
   while (true) {
     runStatus = await getRuns(runId);
-    if (runStatus?.data[0].status === "Completed") break;
+    if (runStatus?.data[0]?.status === "Completed") break;
 
     await new Promise((resolve) => setTimeout(resolve, 500));
   }
@@ -24,7 +24,7 @@ export async function POST(req: any) {
 
 export async function getRuns(runId: string) {
   const result = await axios.get(
-    process.env.INNGEST_SERVER_HOST + "/v1/events/" + { runId } + "/runs",
+    process.env.INNGEST_SERVER_HOST + "/v1/events/" + runId + "/runs",
     {
       headers: {
         Authorization: `Bearer ${process.env.INNGEST_SIGNING_KEY}`,
