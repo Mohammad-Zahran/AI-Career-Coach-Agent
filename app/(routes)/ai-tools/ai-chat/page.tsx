@@ -5,6 +5,7 @@ import { LoaderCircle, Send } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import EmptyState from "./_components/EmptyState";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 
 type messages = {
   content: string;
@@ -91,7 +92,7 @@ function page() {
                       : "bg-gray-50 text-black"
                   } mb-2`}
                 >
-                  {message.content}
+                  <ReactMarkdown>{message.content}</ReactMarkdown>
                 </div>
               </div>
               {loading && messageList?.length - 1 == index && (
