@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { LoaderCircle, Send } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import EmptyState from "./_components/EmptyState";
+import EmptyState from "../_components/EmptyState";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
+import { useParams } from "next/navigation";
 
 type messages = {
   content: string;
@@ -16,19 +17,9 @@ type messages = {
 function page() {
   const [userInput, setUserInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [messageList, setMessageList] = useState<messages[]>([
-    {
-      content: "User Msg",
-      role: "user",
-      type: "text",
-    },
-    {
-      content: "Assistant Msg",
-      role: "assistant",
-      type: "text",
-    },
-  ]);
-
+  const [messageList, setMessageList] = useState<messages[]>([]);
+  const { chatid } = useParams();
+  console.log(chatid);
   const onSend = async () => {
     setLoading(true);
     setMessageList((prev) => [
@@ -39,6 +30,7 @@ function page() {
         type: "text",
       },
     ]);
+    setUserInput("");
     const result = await axios.post("/api/ai-career-chat-agent", {
       userInput: userInput,
     });
@@ -97,7 +89,7 @@ function page() {
               </div>
               {loading && messageList?.length - 1 == index && (
                 <div className="flex justify-start p-3 rounded-lg gap-2 bg-gray-50 text-black mb-2">
-                  <LoaderCircle className="animate-spin" />
+                  <LoaderCircle className="animate-spin" /> Thinking...
                 </div>
               )}
             </div>
