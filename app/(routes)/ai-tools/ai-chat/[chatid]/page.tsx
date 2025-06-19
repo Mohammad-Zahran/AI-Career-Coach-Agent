@@ -21,9 +21,16 @@ function page() {
   const { chatid }: any = useParams();
   console.log(chatid);
 
-  const GetMessageList=()=> {
-    
-  }
+  useEffect(() => {
+    // Fetch message list from Database
+    chatid && GetMessageList();
+  }, [chatid]);
+
+  const GetMessageList = async () => {
+    const result = await axios.get("/api/history?recordId=" + chatid);
+    console.log(result.data);
+    setMessageList(result?.data?.[0]?.content || []);
+  };
 
   const onSend = async () => {
     setLoading(true);
@@ -84,9 +91,10 @@ function page() {
         <div className="flex-1">
           {/* Message List */}
           {messageList?.map((message, index) => (
-            <div>
+            <div key={index}>
+              {" "}
+              {/* ✅ Key moved here */}
               <div
-                key={index}
                 className={`flex mb-2 ${
                   message.role === "user" ? "justify-end" : "justify-start"
                 }`}
@@ -101,7 +109,7 @@ function page() {
                   <ReactMarkdown>{message.content}</ReactMarkdown>
                 </div>
               </div>
-              {loading && messageList?.length - 1 == index && (
+              {loading && messageList?.length - 1 === index && (
                 <div className="flex justify-start p-3 rounded-lg gap-2 bg-gray-50 text-black mb-2">
                   <LoaderCircle className="animate-spin" /> Thinking...
                 </div>
