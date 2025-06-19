@@ -12,7 +12,9 @@ export async function POST(req: any) {
       recordId: recordId,
       content: content,
       userEmail: user?.primaryEmailAddress?.emailAddress,
+      createdAt: new Date().toString(),
     });
+    return NextResponse.json(result);
   } catch (e: any) {
     return NextResponse.json(e);
   }
