@@ -18,7 +18,7 @@ function page() {
   const [userInput, setUserInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [messageList, setMessageList] = useState<messages[]>([]);
-  const { chatid } = useParams();
+  const { chatid }: any = useParams();
   console.log(chatid);
   const onSend = async () => {
     setLoading(true);
@@ -43,8 +43,16 @@ function page() {
 
   useEffect(() => {
     // Save message to Database
-    
+    messageList.length > 0 && updateMessageList();
   }, [messageList]);
+
+  const updateMessageList = async () => {
+    const result = await axios.put("/api/history", {
+      content: messageList,
+      recordId: chatid,
+    });
+    console.log(result.data);
+  };
 
   return (
     <div className="px-10 md:px-24 lg:px-36 xl:px-48">

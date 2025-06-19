@@ -21,6 +21,7 @@ export async function POST(req: any) {
   }
 }
 
+// This route handles the GET request to fetch history records
 export async function PUT(req: any) {
   const { content, recordId } = await req.json();
   try {
