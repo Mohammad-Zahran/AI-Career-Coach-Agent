@@ -20,6 +20,11 @@ function page() {
   const [messageList, setMessageList] = useState<messages[]>([]);
   const { chatid }: any = useParams();
   console.log(chatid);
+
+  const GetMessageList=()=> {
+    
+  }
+
   const onSend = async () => {
     setLoading(true);
     setMessageList((prev) => [

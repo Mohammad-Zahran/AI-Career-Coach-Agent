@@ -21,7 +21,7 @@ export async function POST(req: any) {
   }
 }
 
-// This route handles the GET request to fetch history records
+// This route handles the PUT request to update history records
 export async function PUT(req: any) {
   const { content, recordId } = await req.json();
   try {
@@ -33,6 +33,25 @@ export async function PUT(req: any) {
       .where(eq(HistoryTable.recordId, recordId));
     return NextResponse.json(result);
   } catch (e: any) {
+    return NextResponse.json(e);
+  }
+}
+
+// This route handles the GET request to fetch history records by recordId
+export async function GET(req: any) {
+  const { searchParams } = new URL(req.url);
+  const recordId = searchParams.get("recordId");
+
+  try {
+    if (recordId) {
+      const result = await db
+        .select()
+        .from(HistoryTable)
+        .where(eq(HistoryTable.recordId, recordId));
+      return NextResponse.json(result);
+    }
+    return NextResponse.json({});
+  } catch (e) {
     return NextResponse.json(e);
   }
 }
