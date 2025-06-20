@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -11,6 +11,14 @@ import { File, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 function ResumeUploadDialog({ openResumeUpload, setOpenResumeDialog }: any) {
+  const [file, setFile] = useState<any>();
+  const onFileChange = (event: any) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      console.log(file.name);
+      setFile(file);
+    }
+  };
   return (
     <Dialog open={openResumeUpload} onOpenChange={setOpenResumeDialog}>
       <DialogContent>
@@ -23,13 +31,18 @@ function ResumeUploadDialog({ openResumeUpload, setOpenResumeDialog }: any) {
                 className="flex items-center flex-col justify-center p-7 border border-dashed rounded-xl hover:bg-slate-100 cursor-pointer"
               >
                 <File className="h-10 w-10" />
-                <h2 className="mt-3">Click here to Upload PDF file</h2>
+                {file ? (
+                  <h2 className="mt-3 text-blue-600">{file.name}</h2>
+                ) : (
+                  <h2 className="mt-3">Click here to Upload PDF file</h2>
+                )}
               </label>
               <input
                 type="file"
                 id="resumeUpload"
                 accept="application/pdf"
                 className="hidden"
+                onChange={onFileChange}
               />
             </div>
           </DialogDescription>
