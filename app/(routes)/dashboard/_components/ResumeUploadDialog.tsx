@@ -8,10 +8,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-function ResumeUploadDialog() {
+function ResumeUploadDialog({ openResumeUpload, setOpenResumeDialog }: any) {
   return (
-    <Dialog>
-      <DialogTrigger>Open</DialogTrigger>
+    <Dialog open={openResumeUpload} onOpenChange={setOpenResumeDialog}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
