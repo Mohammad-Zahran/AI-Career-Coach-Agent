@@ -20,7 +20,6 @@ export async function POST(req: NextRequest) {
     name: "AiResumeAgent",
     data: {
       userInput: recordId,
-      resumeFile: resumeFile,
       base64ResumeFile: base64,
       pdfText: docs[0]?.pageContent,
     },
