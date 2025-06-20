@@ -3,10 +3,12 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { File } from "lucide-react";
+import { File, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 function ResumeUploadDialog({ openResumeUpload, setOpenResumeDialog }: any) {
   return (
@@ -23,10 +25,21 @@ function ResumeUploadDialog({ openResumeUpload, setOpenResumeDialog }: any) {
                 <File className="h-10 w-10" />
                 <h2 className="mt-3">Click here to Upload PDF file</h2>
               </label>
-              <input type="file" id="resumeUpload" className="opacity-0" />
+              <input
+                type="file"
+                id="resumeUpload"
+                accept="application/pdf"
+                className="hidden"
+              />
             </div>
           </DialogDescription>
         </DialogHeader>
+        <DialogFooter>
+          <Button variant={"outline"}>Cancel</Button>
+          <Button>
+            <Sparkles /> Upload & Analyze
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
