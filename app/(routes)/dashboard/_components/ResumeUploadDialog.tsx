@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { File, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { v4 as uuidv4 } from "uuid";
 
 function ResumeUploadDialog({ openResumeUpload, setOpenResumeDialog }: any) {
   const [file, setFile] = useState<any>();
@@ -18,6 +19,14 @@ function ResumeUploadDialog({ openResumeUpload, setOpenResumeDialog }: any) {
       console.log(file.name);
       setFile(file);
     }
+  };
+
+  const onUploadAndAnalyze = () => {
+    const recordId = uuidv4();
+    const formData = new FormData();
+    formData.append("recordId", recordId);
+    formData.append("resumeFile", file);
+    // Send FormData to the server
   };
   return (
     <Dialog open={openResumeUpload} onOpenChange={setOpenResumeDialog}>
@@ -49,7 +58,7 @@ function ResumeUploadDialog({ openResumeUpload, setOpenResumeDialog }: any) {
         </DialogHeader>
         <DialogFooter>
           <Button variant={"outline"}>Cancel</Button>
-          <Button>
+          <Button onClick={onUploadAndAnalyze} disabled={!file}>
             <Sparkles /> Upload & Analyze
           </Button>
         </DialogFooter>
