@@ -21,7 +21,6 @@ function page() {
   const [messageList, setMessageList] = useState<messages[]>([]);
   const { chatid }: any = useParams();
   const router = useRouter();
-  console.log(chatid);
 
   useEffect(() => {
     // Fetch message list from Database
@@ -30,7 +29,6 @@ function page() {
 
   const GetMessageList = async () => {
     const result = await axios.get("/api/history?recordId=" + chatid);
-    console.log(result.data);
     setMessageList(result?.data?.[0]?.content || []);
   };
 
@@ -48,12 +46,9 @@ function page() {
     const result = await axios.post("/api/ai-career-chat-agent", {
       userInput: userInput,
     });
-    console.log(result.data);
     setMessageList((prev) => [...prev, result.data]);
     setLoading(false);
   };
-
-  console.log(messageList);
 
   useEffect(() => {
     // Save message to Database
@@ -65,7 +60,6 @@ function page() {
       content: messageList,
       recordId: chatid,
     });
-    console.log(result.data);
   };
 
   const onNewChat = async () => {
@@ -74,7 +68,6 @@ function page() {
       recordId: id,
       content: [],
     });
-    console.log(result);
     router.replace("/ai-tools/ai-chat/" + id);
   };
 

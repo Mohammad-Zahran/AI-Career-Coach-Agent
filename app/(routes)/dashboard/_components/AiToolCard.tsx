@@ -35,7 +35,6 @@ function AiToolCard({ tool }: AIToolProps) {
       recordId: id,
       content: [],
     });
-    console.log(result);
     router.push(tool.path + "/" + id);
   };
   return (
