@@ -152,6 +152,10 @@ export const AiResumeAgent = inngest.createFunction(
     });
 
     const aiResumeReport = await AiResumeAnalyzerAgent.run(pdfText);
-    return aiResumeReport;
+    //@ts-ignore
+    const rawContent = aiResumeReport.output[0].content;
+    const rawContentJson = rawContent.replace("```json", "").replace("```", "");
+    const parseJson = JSON.parse(rawContentJson);
+    return parseJson;
   }
 );
