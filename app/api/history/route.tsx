@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 
 // This route handles the POST request to create a new history record
 export async function POST(req: any) {
-  const { content, recordId } = await req.json();
+  const { content, recordId, aiAgentType } = await req.json();
   const user = await currentUser();
   try {
     const result = await db.insert(HistoryTable).values({
@@ -14,6 +14,7 @@ export async function POST(req: any) {
       content: content,
       userEmail: user?.primaryEmailAddress?.emailAddress,
       createdAt: new Date().toString(),
+      aiAgentType: aiAgentType,
     });
     return NextResponse.json(result);
   } catch (e: any) {
