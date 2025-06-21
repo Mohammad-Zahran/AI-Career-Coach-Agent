@@ -2,6 +2,8 @@ import { gemini } from "inngest";
 import { inngest } from "./client";
 import { createAgent, anthropic, openai } from "@inngest/agent-kit";
 import ImageKit from "imagekit";
+import { db } from "@/configs/db";
+import { HistoryTable } from "@/configs/schema";
 
 // This function is a simple hello world example that waits for 1 second before responding
 export const helloWorld = inngest.createFunction(
@@ -139,7 +141,8 @@ export const AiResumeAgent = inngest.createFunction(
   { id: "AiResumeAgent" },
   { event: "AiResumeAgent" },
   async ({ event, step }) => {
-    const { recordId, base64ResumeFile, pdfText } = await event.data;
+    const { recordId, base64ResumeFile, pdfText, aiAgentType, userEmail } =
+      await event.data;
     // Upload file to Cloud Storage
     const uploadImageUrl = await step.run("uploadImage", async () => {
       const imageKitFile = await imagekit.upload({
@@ -156,6 +159,19 @@ export const AiResumeAgent = inngest.createFunction(
     const rawContent = aiResumeReport.output[0].content;
     const rawContentJson = rawContent.replace("```json", "").replace("```", "");
     const parseJson = JSON.parse(rawContentJson);
-    return parseJson;
+    // return parseJson;
+
+    // Save to DB
+    const saveToDB = await step.run("SaveToDb", async () => {
+      const result = await db.insert(HistoryTable).values({
+        recordId: recordId,
+        content: parseJson,
+        aiAgentType: aiAgentType,
+        createdAt: new Date().toString(),
+        userEmail: userEmail,
+      });
+      console.log(result);
+      return parseJson;
+    });
   }
 );
