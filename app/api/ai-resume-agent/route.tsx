@@ -2,13 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { WebPDFLoader } from "@langchain/community/document_loaders/web/pdf";
 import { inngest } from "@/inngest/client";
 import axios from "axios";
+import { currentUser } from "@clerk/nextjs/server";
 
 // This API route handles the upload of a resume PDF file, processes it, and returns the extracted text.
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const resumeFile: any = formData.get("resumeFile");
   const recordId = formData.get("recordId");
-
+  const user = await currentUser();
   const loader = new WebPDFLoader(resumeFile);
   const docs = await loader.load();
   console.log(docs[0]); // Raw Pdf Text
@@ -19,9 +20,11 @@ export async function POST(req: NextRequest) {
   const resultIds = await inngest.send({
     name: "AiResumeAgent",
     data: {
-      userInput: recordId,
+      recordId: recordId,
       base64ResumeFile: base64,
       pdfText: docs[0]?.pageContent,
+      aiAgentType: "/ai-tools/ai-resume-analyzer",
+      userEmail: user?.primaryEmailAddress?.emailAddress,
     },
   });
   const runId = resultIds?.ids[0];
